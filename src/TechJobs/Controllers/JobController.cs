@@ -35,33 +35,33 @@ namespace TechJobs.Controllers
         [HttpPost]
         public IActionResult New(NewJobViewModel newJobViewModel)
         {
+            if (newJobViewModel.Name == null)
+            {
+                return View(newJobViewModel);
+            }
 
             Employer newEmployer = jobData.Employers.Find(newJobViewModel.EmployerID);
-            Location foundLocation = jobData.Locations.ToList(newJobViewModel.Location);
-            CoreCompetency foundCoreCompetency = ;
-            PositionType foundPositionType = ;
+            Location foundLocation = jobData.Locations.Find(newJobViewModel.Location);
+            CoreCompetency foundCoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetency);
+            PositionType foundPositionType = jobData.PositionTypes.Find(newJobViewModel.PositionType);
 
             Job jerb = new Job
             {
                 Name = newJobViewModel.Name,
                 Employer = newEmployer,
-                Location = jobData.Locations.Find(newJobViewModel.Location),
-                // I need to create a new job object but the properties also need to be objects
-                // IDK how to find the other object properties
-                //Location = jobData.Locations.Find(newJobViewModel.Location),
-                //CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.)
-
-        };
+                Location = foundLocation,
+                CoreCompetency = foundCoreCompetency,
+                PositionType = foundPositionType
+            };
 
             jobData.Jobs.Add(jerb);
+            int jerbId = jerb.ID;
 
             // TODO #6 - Validate the ViewModel and if valid, create a 
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
 
-
-            // need to redirect
-            return View(newJobViewModel);
+            return Redirect($"/Job?id={jerbId}");
         }
     }
 }

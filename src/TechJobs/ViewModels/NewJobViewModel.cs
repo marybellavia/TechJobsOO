@@ -19,15 +19,15 @@ namespace TechJobs.ViewModels
         // with correct validation attributes and display names.
 
         [Required]
-        public string Location { get; set; }
+        public int Location { get; set; }
 
         [Required]
         [Display(Name="Skill")]
-        public string CoreCompetency { get; set; }
+        public int CoreCompetency { get; set; }
 
         [Required]
         [Display(Name="Postion Type")]
-        public string PositionType { get; set; }
+        public int PositionType { get; set; }
 
 
         public List<SelectListItem> Employers { get; set; } = new List<SelectListItem>();
