@@ -40,28 +40,34 @@ namespace TechJobs.Controllers
                 return View(newJobViewModel);
             }
 
-            Employer newEmployer = jobData.Employers.Find(newJobViewModel.EmployerID);
-            Location foundLocation = jobData.Locations.Find(newJobViewModel.Location);
-            CoreCompetency foundCoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetency);
-            PositionType foundPositionType = jobData.PositionTypes.Find(newJobViewModel.PositionType);
-
-            Job jerb = new Job
+            if (ModelState.IsValid)
             {
-                Name = newJobViewModel.Name,
-                Employer = newEmployer,
-                Location = foundLocation,
-                CoreCompetency = foundCoreCompetency,
-                PositionType = foundPositionType
-            };
+                Employer newEmployer = jobData.Employers.Find(newJobViewModel.EmployerID);
+                Location foundLocation = jobData.Locations.Find(newJobViewModel.Location);
+                CoreCompetency foundCoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetency);
+                PositionType foundPositionType = jobData.PositionTypes.Find(newJobViewModel.PositionType);
 
-            jobData.Jobs.Add(jerb);
-            int jerbId = jerb.ID;
+                Job jerb = new Job
+                {
+                    Name = newJobViewModel.Name,
+                    Employer = newEmployer,
+                    Location = foundLocation,
+                    CoreCompetency = foundCoreCompetency,
+                    PositionType = foundPositionType
+                };
+
+                jobData.Jobs.Add(jerb);
+                int jerbId = jerb.ID;
+
+                return Redirect($"/Job?id={jerbId}");
+            }
+
 
             // TODO #6 - Validate the ViewModel and if valid, create a 
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
 
-            return Redirect($"/Job?id={jerbId}");
+            return View(newJobViewModel);
         }
     }
 }
