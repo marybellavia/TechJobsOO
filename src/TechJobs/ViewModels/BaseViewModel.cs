@@ -4,9 +4,10 @@ using TechJobs.Models;
 
 namespace TechJobs.ViewModels
 {
+
+    // has common things from jobfieldsviewmodel and searchjobviewmodel
     public class BaseViewModel
     {
-        // FROM SearchJobsViewModels.cs
         // All columns, for display
         public List<JobFieldType> Columns { get; set; }
 

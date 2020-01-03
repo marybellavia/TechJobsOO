@@ -4,6 +4,7 @@ using TechJobs.Models;
 
 namespace TechJobs.ViewModels
 {
+    // extends baseviewmodel
     public class JobFieldsViewModel : BaseViewModel
     {
         // TODO #7.2 - Extract members common to SearchJobsViewModel

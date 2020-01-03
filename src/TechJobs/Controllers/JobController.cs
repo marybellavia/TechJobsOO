@@ -21,8 +21,11 @@ namespace TechJobs.Controllers
         // The detail display for a given Job at URLs like /Job?id=17
         public IActionResult Index(int id)
         {
+            // Getting the jerb to pass into the view
             Job jerb = JobData.GetInstance().Find(id);
             // TODO #1 - get the Job with the given ID and pass it into the view
+
+            // passing the jerb into the view
             return View(jerb);
         }
 
@@ -35,10 +38,11 @@ namespace TechJobs.Controllers
         [HttpPost]
         public IActionResult New(NewJobViewModel newJobViewModel)
         {
-            if (newJobViewModel.Name == null)
-            {
-                return View(newJobViewModel);
-            }
+            //This does the same thing as the ModelState.IsValid but better
+            //if (newJobViewModel.Name == null)
+            //{
+            //    return View(newJobViewModel);
+            //}
 
             if (ModelState.IsValid)
             {
