@@ -3,6 +3,7 @@ using TechJobs.Data;
 using TechJobs.ViewModels;
 using TechJobs.Models;
 
+
 namespace TechJobs.Controllers
 {
     public class JobController : Controller
@@ -33,10 +34,24 @@ namespace TechJobs.Controllers
         [HttpPost]
         public IActionResult New(NewJobViewModel newJobViewModel)
         {
+            Job jerb = new Job
+            {
+                Name = newJobViewModel.Name,
+                Employer = jobData.Employers.Find(newJobViewModel.EmployerID),
+                // I need to create a new job object but the properties also need to be objects
+                // IDK how to find the other object properties
+                //Location = jobData.Locations.Find(newJobViewModel.Location),
+                //CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.)
+
+        };
+
+            jobData.Jobs.Add(jerb);
+
             // TODO #6 - Validate the ViewModel and if valid, create a 
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
 
+            // Don't I want to also redirect????
             return View(newJobViewModel);
         }
     }
